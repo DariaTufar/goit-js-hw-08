@@ -2,10 +2,22 @@
 import { galleryItems } from './gallery-items';
 // Change code below this line
 
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+import { markupTemplateLightbox } from './functions/markupTemplateLightbox';
 
 
- 
-import simpleLightbox from 'simplelightbox';
+const imgContainer = document.querySelector('.gallery');
+const galleryList = galleryItems
+  .map(item => markupTemplateLightbox(item))
+  .join(``);
 
-console.log(simpleLightbox);
-console.log(galleryItems);
+console.log(imgContainer);
+imgContainer.insertAdjacentHTML('afterbegin', galleryList);
+
+new  SimpleLightbox('.gallery a', {
+  captionSelector: 'img',
+  captionsData: 'alt',
+  caption: true,
+  captionDelay: 250,
+});
