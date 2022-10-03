@@ -10,20 +10,21 @@ ref.form.addEventListener(`input`, throttle(onFormData, 500));
 ref.form.addEventListener(`submit`, onSubmitForm);
 
 const formData = {}
+const LOCAL_STORAGE_FORM_STATE = 'feedback-form-state';
 
 function onFormData(evt) {
     formData[evt.target.name] = evt.target.value;
-    localStorage.setItem("feedback-form-state", JSON.stringify(formData));
+    localStorage.setItem(LOCAL_STORAGE_FORM_STATE, JSON.stringify(formData));
 }
 function onSubmitForm(evt) {
-    console.log(JSON.parse(localStorage.getItem("feedback-form-state")));
+    console.log(JSON.parse(localStorage.getItem(LOCAL_STORAGE_FORM_STATE)));
     evt.preventDefault();
     evt.currentTarget.reset();
-    localStorage.removeItem("feedback-form-state");
+    localStorage.removeItem(LOCAL_STORAGE_FORM_STATE);
     
 }
 function dataFromLocalStorage() {
-    const data = JSON.parse(localStorage.getItem("feedback-form-state"));
+    const data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_FORM_STATE));
     if (data) {
         ref.email.value = data.email;
         ref.message.value = data.message;
